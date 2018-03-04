@@ -1,0 +1,32 @@
+{
+  "name": "vuejs-study",
+  "version": "1.0.0",
+  "description": "A project for the purpose of getting to know what VueJS is. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://jaybkim1@github.com/jaybkim1/VueJS-Study.git"
+  },
+  "keywords": [
+    "MongoDB",
+    "Express",
+    "VueJS",
+    "RestfulAPI"
+  ],
+  "author": "JayB",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaybkim1/VueJS-Study/issues"
+  },
+  "homepage": "https://github.com/jaybkim1/VueJS-Study#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "jade": "^1.11.0",
+    "mongoose": "^5.0.8"
+  }
+}
