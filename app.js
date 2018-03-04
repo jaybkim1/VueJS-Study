@@ -2,7 +2,7 @@
 
 // Import dependencies
 var bodyParser = require('body-parser');
-var config = require('./config/config');
+var config = require('./config/config.js');
 var express = require('express');
 var mongoose = require('mongoose');
 var logger = require('morgan'); // HTTP request logger middleware for node.js
@@ -17,17 +17,28 @@ var app = express();
 // Configure port
 var port = process.env.PORT || config.port;
 
+// Connect MongoDB
+mongoose
+    .connect(config.url)
+    .then(() => { console.log(`MongoDB Connected Successfully\n`) })
+    .catch((err) => console.error(`Fail to connect MongoDB\n ${err}`))
+
 // Setup app 
 app.set('port', port);
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade');
 
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', routes);
+
 app.use((req, res, next) => {
     const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
+
 app.use((err, req, res, next) => {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -40,17 +51,10 @@ app.listen(port, (err) => {
         console.error(err);
         process.exit(1);
     }
-    console.log(`The Server is Running at http://locahost:${port}\n`);
+    console.log(`The Server is Running at http://localhost:${port}\n`);
 });
 
-
-// Connect MongoDB
-mongoose
-    .connect(config.url)
-    .then(() => { console.log(`MongoDB Connected Successfully\n`) })
-    .catch((err) => console.error(`Fail to connect MongoDB\n ${err}`))
-
-
+module.exports = app;
 
 // // DB schema 생성 
 // var userSchema = mongoose.Schema({
